@@ -8,6 +8,8 @@ Usage:
 --help          Help documentation
 --version       Installed package version
 --get ID/Name   Get repository from API by ID or Name
+--getall        Get all repositories
+--sync          Synchronize DataBase with GitHub API and reset timer
 `
 
 if (options.includes('--version')) {
