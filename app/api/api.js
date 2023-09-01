@@ -8,6 +8,10 @@ async function getTrendingRepos() {
     let formattedResponse = { 
         items: []
     };
+    if (response.status != 200) {
+        console.log("Bad response");
+        return;
+    }
     jsonResponse.items.forEach(item => {
         formattedResponse.items.push({
             repoId: item.id,
