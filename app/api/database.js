@@ -1,5 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
+// Class for work with MongoDB
 class Mongo {
     constructor (url, dbName, collectionName) {
         this.url = url;
@@ -21,6 +22,9 @@ class Mongo {
         await this.connection.close();
     }
 
+    // Method which does upsert to repos collection
+    // Updates repo if it exist or inserts if it doesn't
+    // Also return count of updated or inserted repos
     async insertRepos(reposObjArr) {
         const options = { ordered: true };
         let counter = 0

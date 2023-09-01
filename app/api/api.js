@@ -1,3 +1,6 @@
+// Function for requesting GitHub API for Trending Repositories
+// for query 'javascript'.
+// note: query is a required parameter.
 async function getTrendingRepos() {
     const response = await fetch("https://api.github.com/search/repositories?" + new URLSearchParams({
         q: "javascript",    

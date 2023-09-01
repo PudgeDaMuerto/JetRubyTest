@@ -10,16 +10,23 @@ const mongo = new Mongo(
     config.MONGO_DB, 
     config.MONGO_COLLECTION
 );
+
+// Start interval for sync DB with GitHub
 const interval = new Interval(forceSync, config.INTERVAL_MINUTES*MINUTE);
 interval.startInterval();
 
+// Function for synchronization
 async function forceSync(request, response) { 
     console.log("Start synchronization with GitHub API");
     await mongo.connect();
-    const counter = await api.getTrendingRepos().then(r => mongo.insertRepos(r.items)).catch(err => console.log(err));
+    const counter = await api.getTrendingRepos()
+    .then(r => mongo.insertRepos(r.items))
+    .catch(err => console.log(err));
+    
     return counter;
 }
 
+// View for 'sync' that does force synchronization
 async function sync(request, response) {
     await forceSync(request, response)
     .then(counter => response.write(
@@ -29,6 +36,8 @@ async function sync(request, response) {
     interval.refresh();
 }
 
+// View for '/get' endpoint that gets repository from 
+// DB by ID or Name (function understands what user needs)
 async function getByIDOrName(request, response) {
     let urlParams = url.parse(request.url, true).query;
     if (!urlParams.repo) {
@@ -37,6 +46,8 @@ async function getByIDOrName(request, response) {
     }
     await mongo.connect();
 
+    // If JS can convert parameter to Number, then it's ID
+    // otherwise it's Name of repository
     const repoid = parseInt(urlParams.repo);
     if (repoid) {
         await mongo.getRepoByID(urlParams.repo)
@@ -47,6 +58,7 @@ async function getByIDOrName(request, response) {
     }
 }
 
+// View for '/getall' endpoint
 async function getAll(request, response) {
     await mongo.connect();
 
