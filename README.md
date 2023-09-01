@@ -19,3 +19,5 @@ After that you can launch cli for more documentation about API:
 cd ../cli
 node index.js --help
 ```
+
+You can access interface for DB on http://127.0.0.1:8081
