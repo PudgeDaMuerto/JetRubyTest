@@ -1,6 +1,6 @@
 const HOSTNAME = "127.0.0.1";
 const PORT = 8000;
-const INTERVAL_MINUTES = 0.5;
+const INTERVAL_MINUTES = 5;
 const MONGO_USER = "root";
 const MONGO_PASSWORD = "example";
 const MONGO_DB = "github";
