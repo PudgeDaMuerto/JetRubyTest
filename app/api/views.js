@@ -16,7 +16,7 @@ interval.startInterval();
 async function forceSync(request, response) { 
     console.log("Start synchronization with GitHub API");
     await mongo.connect();
-    const counter = await api.getTrendingRepos().then(r => mongo.insertRepos(r.items));
+    const counter = await api.getTrendingRepos().then(r => mongo.insertRepos(r.items)).catch(err => console.log(err));
     return counter;
 }
 
